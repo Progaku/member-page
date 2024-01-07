@@ -1,1 +1,30 @@
-<p>login works!</p>
+<div class="p-3">
+  <h1>Progakuメンバーページへようこそ！</h1>
+  <div class="flex justify-content-center">
+    <p-card
+      class="flex flex-column p-3"
+      header="ログイン"
+      subheader="Progakuの会員様のみご利用いただけます。"
+    >
+      <div class="flex align-items-center m-3 gap-3">
+        <app-form-field [holdErrorFrame]="true">
+          <app-form-label for="userIdForm">合言葉</app-form-label>
+          <input
+            [formControl]="userIdForm"
+            [class.ng-invalid]="userIdForm.invalid"
+            appForm
+            id="userIdForm"
+            type="text"
+            pInputText
+          />
+          @if (userIdForm.dirty && userIdForm.hasError('required')) {
+            <app-form-error>入力は必須です</app-form-error>
+          }
+        </app-form-field>
+        <p-button [disabled]="userIdForm.invalid" (onClick)="onClickLogin()"
+          >ログイン</p-button
+        >
+      </div>
+    </p-card>
+  </div>
+</div>
