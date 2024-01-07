@@ -1,0 +1,13 @@
+<div class="flex gap-2 flex-column">
+  <ng-content select="[appLabel], app-form-label"></ng-content>
+
+  <ng-content select="[appForm]"></ng-content>
+
+  <ng-content select="[appHint], app-form-hint"></ng-content>
+
+  @if (holdErrorFrame) {
+    <div class="h-1rem">
+      <ng-content select="[appError], app-form-error"></ng-content>
+    </div>
+  }
+</div>
