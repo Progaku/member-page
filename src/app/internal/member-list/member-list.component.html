@@ -1,0 +1,11 @@
+<div class="grid">
+  @for (m of members; track m) {
+    <div class="col-12 lg:col-6">
+      <app-member-card
+        [memberInfo]="m"
+        (click)="toMemberDetail(m.id)"
+        class="cursor-pointer"
+      ></app-member-card>
+    </div>
+  }
+</div>
