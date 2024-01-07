@@ -24,6 +24,7 @@
       "dom"
     ],
     "paths": {
+      "@/login/*": ["./src/app/login/*"],
       "@/internal/*": ["./src/app/internal/*"],
       "@/shared/*": ["./src/app/shared/*"]
     }

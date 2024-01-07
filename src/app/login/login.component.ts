@@ -44,5 +44,7 @@ export class LoginComponent implements OnDestroy {
   }
 
   onClickLogin(): void {
+    this.toastService.info('login');
+    this.router.navigate(['/internal/mypage']).then();
   }
 }
