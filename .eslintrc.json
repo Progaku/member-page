@@ -20,6 +20,7 @@
         "quotes": ["error", "single"],
         "semi": ["error", "always"],
         "indent": ["error", 2],
+        "object-curly-spacing": ["error", "always"],
         "@angular-eslint/directive-selector": [
           "error",
           {
