@@ -12,14 +12,18 @@
 
   <div class="flex flex-row gap-3">
     <p-image
-      [src]="memberInfo.iconImageId"
+      [src]="memberInfo.iconImage ?? 'assets/no-image.png'"
       [imageStyle]="{ borderRadius: '10px' }"
       [width]="imageWidth"
     ></p-image>
 
     <div class="flex flex-column gap-2">
       <app-item-list title="誕生日">
-        <p>{{ memberInfo.birthday | date: 'yyyy/MM/dd' }}</p>
+        @if (memberInfo.birthday) {
+          <p>{{ memberInfo.birthday | date: 'yyyy/MM/dd' }}</p>
+        } @else {
+          <p>????/??/??</p>
+        }
       </app-item-list>
 
       <app-item-list title="都道府県">

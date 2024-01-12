@@ -2,23 +2,20 @@
   <ng-template pTemplate="title">
     <div class="flex flex-row gap-2">
       <div>{{ memberDetail.nickname }}</div>
-      <div *ngIf="memberDetail.twitterUserId">
+      @if (memberDetail.twitterUserId) {
         <i class="pi pi-twitter"></i>
-      </div>
+      }
     </div>
   </ng-template>
   <div class="flex flex-row flex-wrap gap-6">
-    <p-image [src]="memberDetail.iconImageId" [width]="imageWidth"></p-image>
+    <p-image [src]="memberDetail.iconImage" [width]="imageWidth"></p-image>
     <div class="flex flex-column gap-2">
-      <app-item-list
-        *ngIf="memberDetail.twitterUserId !== null"
-        title="twitter"
-      >
-        <p>{{ memberDetail.twitterUserId }}</p>
-      </app-item-list>
-
       <app-item-list title="誕生日">
-        <p>{{ memberDetail.birthday | date: 'yyyy/MM/dd' }}</p>
+        @if (memberDetail.birthday) {
+          <p>{{ memberDetail.birthday | date: 'yyyy/MM/dd' }}</p>
+        } @else {
+          <p>????/??/??</p>
+        }
       </app-item-list>
 
       <app-item-list title="都道府県">
