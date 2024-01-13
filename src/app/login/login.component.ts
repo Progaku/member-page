@@ -1,11 +1,13 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { Subscription } from 'rxjs';
 
+import { FormErrorComponent } from '@/shared/components/atoms/form-error/form-error.component';
 import { FormLabelComponent } from '@/shared/components/atoms/form-label/form-label.component';
 import { FormFieldComponent } from '@/shared/components/molecules/form-field/form-field.component';
 import { ToastService } from '@/shared/services/toast.service';
@@ -20,15 +22,16 @@ import { ToastService } from '@/shared/services/toast.service';
     ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
-    FormLabelComponent
+    FormLabelComponent,
+    FormErrorComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnDestroy {
   private subscription = new Subscription();
-  private router: Router = inject(Router);
-  private toastService: ToastService = inject(ToastService);
+  private router = inject(Router);
+  private toastService = inject(ToastService);
 
   userIdForm = new FormControl<string>('', {
     nonNullable: true,

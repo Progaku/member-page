@@ -25,10 +25,9 @@
           pInputText
           placeholder="ニックネーム"
         />
-        <app-form-error
-          *ngIf="nicknameForm.dirty && nicknameForm.hasError('required')"
-        >入力は必須です</app-form-error
-        >
+        @if (nicknameForm.dirty && nicknameForm.hasError('required')) {
+          <app-form-error>入力は必須です</app-form-error>
+        }
       </app-form-field>
 
       <app-form-field [holdErrorFrame]="true">
@@ -42,12 +41,9 @@
           pInputText
           placeholder="@以降を入力ください"
         />
-        <app-form-error
-          *ngIf="
-            twitterUserIdForm.dirty && twitterUserIdForm.hasError('pattern')
-          "
-        >使用できない文字が含まれています</app-form-error
-        >
+        @if (twitterUserIdForm.dirty && twitterUserIdForm.hasError('pattern')) {
+          <app-form-error>使用できない文字が含まれています</app-form-error>
+        }
       </app-form-field>
 
       <app-form-field [holdErrorFrame]="false">
@@ -72,10 +68,9 @@
           pInputText
           placeholder="東京都"
         />
-        <app-form-error
-          *ngIf="prefecturesForm.dirty && prefecturesForm.hasError('maxlength')"
-        >最大 {{ prefecturesMaxLength }} 文字までです</app-form-error
-        >
+        @if (prefecturesForm.dirty && prefecturesForm.hasError('maxlength')) {
+          <app-form-error>最大 {{ prefecturesMaxLength }} 文字までです</app-form-error>
+        }
       </app-form-field>
 
       <app-form-field [holdErrorFrame]="false" class="p-fluid">

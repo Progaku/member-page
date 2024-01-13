@@ -24,9 +24,9 @@
 
       <app-item-list title="技術">
         <div class="flex align-items-center gap-2 flex-wrap">
-          <ng-container *ngFor="let tech of memberDetail.techs; index as i">
+          @for (tech of memberDetail.techs; track tech) {
             <p-chip [label]="tech"></p-chip>
-          </ng-container>
+          }
         </div>
       </app-item-list>
 
@@ -38,9 +38,9 @@
 
       <app-item-list title="趣味">
         <div class="flex align-items-center gap-2 flex-wrap">
-          <ng-container *ngFor="let h of memberDetail.hobby; index as i">
+          @for (h of memberDetail.hobby; track h) {
             <p-chip [label]="h"></p-chip>
-          </ng-container>
+          }
         </div>
       </app-item-list>
 

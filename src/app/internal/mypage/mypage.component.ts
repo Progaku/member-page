@@ -9,6 +9,7 @@ import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
+import { FormErrorComponent } from '@/shared/components/atoms/form-error/form-error.component';
 import { FormLabelComponent } from '@/shared/components/atoms/form-label/form-label.component';
 import { FormFieldComponent } from '@/shared/components/molecules/form-field/form-field.component';
 
@@ -24,6 +25,7 @@ import { FormFieldComponent } from '@/shared/components/molecules/form-field/for
     ReactiveFormsModule,
     CalendarModule,
     FormLabelComponent,
+    FormErrorComponent,
     InputTextareaModule,
     ChipsModule
   ],
@@ -34,7 +36,7 @@ export class MypageComponent {
   private activatedRoute = inject(ActivatedRoute);
 
   /** アイコン */
-  myIconPath = '';
+  myIconPath = 'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg';
 
   /** 都道府県最大文字数 */
   readonly prefecturesMaxLength = 30;

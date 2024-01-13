@@ -3,46 +3,45 @@
 
   <div class="flex align-items-center gap-3">
     <!-- PC幅 -->
-    <ng-container
-      *ngIf="currentWindowWidth > TABLET_THRESHOLD_WIDTH; else mobileContent"
-    >
+    @if (currentWindowWidth > TABLET_THRESHOLD_WIDTH) {
       <p-button
         (onClick)="onClickMemberButton()"
+        [text]="true"
         label="メンバー"
         icon="pi pi-user"
-        styleClass="p-button-text text-base"
       ></p-button>
       <p-button
         (onClick)="onClickMyPageButton()"
+        [text]="true"
         label="マイページ"
         icon="pi pi-cog"
-        styleClass="p-button-text text-base"
       ></p-button>
       <p-button
         (onClick)="onClickLogoutButton()"
+        [text]="true"
         label="ログアウト"
         icon="pi pi-sign-out"
-        styleClass="p-button-text text-base"
       ></p-button>
-    </ng-container>
-
-    <!-- スマホ幅 -->
-    <ng-template #mobileContent>
+    } @else {
+      <!-- スマホ幅 -->
       <p-button
         (onClick)="onClickMemberButton()"
+        [text]="true"
+        [rounded]="true"
         icon="pi pi-user"
-        styleClass="p-button-rounded p-button-text"
       ></p-button>
       <p-button
         (onClick)="onClickMyPageButton()"
+        [text]="true"
+        [rounded]="true"
         icon="pi pi-cog"
-        styleClass="p-button-rounded p-button-text"
       ></p-button>
       <p-button
         (onClick)="onClickLogoutButton()"
+        [text]="true"
+        [rounded]="true"
         icon="pi pi-sign-out"
-        styleClass="p-button-rounded p-button-text"
       ></p-button>
-    </ng-template>
+    }
   </div>
 </div>
