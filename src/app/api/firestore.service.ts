@@ -161,4 +161,11 @@ export class FirestoreService {
     );
     return from(updateDoc(myInfoRef, { ...param }));
   }
+
+  uploadMyIcon(id: string, iconImageId: string): Observable<void> {
+    const myInfoRef = doc(
+      firestore, FIRESTORE_NAME, id
+    );
+    return from(updateDoc(myInfoRef, { iconImage: iconImageId }));
+  }
 }

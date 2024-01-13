@@ -4,12 +4,12 @@
       <p-image
         [imageStyle]="{ borderRadius: '10px' }"
         [src]="myIconPath ?? 'assets/no-image.png'"
+        [width]="imageWidth"
         alt="icon"
       ></p-image>
       <div class="flex justify-content-center">
-        <p-button (onClick)="onClickIconSettingButton()"
-        >アイコンを設定</p-button
-        >
+        <p-button (onClick)="fileUpload.click()">アイコンを設定</p-button>
+        <input type="file" class="file-input" (change)="onClickIconSettingButton($event)" #fileUpload>
       </div>
     </div>
 

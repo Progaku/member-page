@@ -5,11 +5,11 @@
     </div>
   </ng-template>
   <div class="flex flex-row flex-wrap gap-6">
-    <p-image [src]="memberDetail.iconImage ?? 'assets/no-image.png'" [width]="imageWidth"></p-image>
+    <p-image [src]="iconImagePath ?? 'assets/no-image.png'" [width]="imageWidth"></p-image>
     <div class="flex flex-column gap-2">
       @if (memberDetail.twitterUserId !== null) {
         <app-item-list
-          title="twitter"
+          title="X(twitter)"
         >
           <p>{{ memberDetail.twitterUserId }}</p>
         </app-item-list>
