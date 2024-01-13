@@ -3,10 +3,10 @@ import { ResolveFn } from '@angular/router';
 
 import { FirestoreService, MemberDetail } from '@/api/firestore.service';
 
-export const memberDetailResolver: ResolveFn<MemberDetail> = (
+export const memberDetailResolver: ResolveFn<MemberDetail | null> = (
   route,
   _state,
-  firestoreService: FirestoreService = inject(FirestoreService),
+  firestoreService = inject(FirestoreService)
 ) => {
-  return firestoreService.getMemberDetail(route.params['id']);
+  return firestoreService.getMemberById(route.params['id']);
 };

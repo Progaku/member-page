@@ -1,10 +1,8 @@
-import { inject, Injectable } from '@angular/core';
-import { collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore';
+import { Injectable } from '@angular/core';
+import { collection, doc, getDoc, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { from, map, Observable } from 'rxjs';
 
 import { firestore } from './firebase';
-
-import { ToastService } from '@/shared/services/toast.service';
 
 const FIRESTORE_NAME = 'member';
 
@@ -30,7 +28,7 @@ export const MemberInitial: Member = {
 
 export interface MemberDetail {
   nickname: string;
-  iconImage: string;
+  iconImage: string | null;
   twitterUserId: string | null;
   birthday: string | null;
   prefectures: string;
@@ -42,7 +40,7 @@ export interface MemberDetail {
 
 export const MemberDetailInitial: MemberDetail = {
   nickname: '',
-  iconImage: '',
+  iconImage: null,
   twitterUserId: null,
   birthday: null,
   prefectures: '',
@@ -52,12 +50,14 @@ export const MemberDetailInitial: MemberDetail = {
   description: '',
 };
 
+export interface LoginUser {
+  id: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
-  private toastService = inject(ToastService);
-
   constructor() {}
 
   getMembers(): Observable<Member[]> {
@@ -83,12 +83,12 @@ export class FirestoreService {
     );
   }
 
-  getMemberDetail(id: string): Observable<MemberDetail> {
+  getMemberById(id: string): Observable<MemberDetail | null> {
     const memberRef = doc(
       firestore, FIRESTORE_NAME, id
     );
     return from(getDoc(memberRef)).pipe(
-      map((snap): MemberDetail => {
+      map((snap): MemberDetail | null => {
         if (snap.exists()) {
           const data = snap.data();
           return {
@@ -104,9 +104,28 @@ export class FirestoreService {
           };
         }
 
-        this.toastService.error('failed get member detail.');
-        return MemberDetailInitial;
+        return null;
       }),
+    );
+  }
+
+  getMemberByNickname(nickname: string): Observable<LoginUser | null> {
+    const loginUserRef = query(
+      collection(firestore, FIRESTORE_NAME),
+      where('nickname', '==', nickname)
+    );
+    return from(getDocs(loginUserRef)).pipe(
+      map((param): LoginUser | null => {
+        if (param.empty) {
+          return null;
+        }
+
+        const data = param.docs[0];
+
+        return {
+          id: data.id
+        };
+      })
     );
   }
 }

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, HostListener, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
 import { ImageModule } from 'primeng/image';
@@ -8,6 +8,7 @@ import { ImageModule } from 'primeng/image';
 import { MemberDetail, MemberDetailInitial } from '@/api/firestore.service';
 import { ItemListComponent } from '@/internal/components/item-list/item-list.component';
 import { TABLET_THRESHOLD_WIDTH } from '@/shared/constants/breakpoint';
+import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -24,6 +25,8 @@ import { TABLET_THRESHOLD_WIDTH } from '@/shared/constants/breakpoint';
 })
 export class MemberDetailComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private toastService = inject(ToastService);
 
   memberDetail: MemberDetail = MemberDetailInitial;
 
@@ -32,6 +35,12 @@ export class MemberDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const resolverData = this.activatedRoute.snapshot.data;
+    const memberDetail = resolverData['memberDetail'];
+    if (!memberDetail) {
+      this.toastService.error('failed get member detail.');
+      this.router.navigate(['/internal/members']).then();
+      return;
+    }
     this.memberDetail = resolverData['memberDetail'];
   }
 
