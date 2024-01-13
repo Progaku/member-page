@@ -19,6 +19,7 @@ firebase-debug.*.log*
 /tmp
 /out-tsc
 /bazel-out
+/build
 
 # Node
 /node_modules
