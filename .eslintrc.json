@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": [
-    "projects/**/*"
+    "projects/**/*",
+    "build/**/*"
   ],
   "plugins": ["import", "unused-imports"],
   "overrides": [
