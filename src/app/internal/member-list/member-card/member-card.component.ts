@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
 import { ImageModule } from 'primeng/image';
@@ -21,11 +21,24 @@ import { TABLET_THRESHOLD_WIDTH } from '@/shared/constants/breakpoint';
   templateUrl: './member-card.component.html',
   styleUrl: './member-card.component.scss'
 })
-export class MemberCardComponent {
+export class MemberCardComponent implements OnInit{
+  /** チップ表示最大数 */
+  private readonly DISPLAY_MAX_CHIP_COUNT = 3;
+
   @Input({ required: true }) memberInfo: Member = MemberInitial;
+
+  /** チップ表示最大数を超えているかどうか */
+  isOverTechsMaxCount = false;
+  /** 表示テック */
+  displayTechs: string[] = [];
 
   /** 現在の画面幅 */
   currentWindowWidth = window.innerWidth;
+
+  ngOnInit(): void {
+    this.isOverTechsMaxCount = this.memberInfo.techs.length > this.DISPLAY_MAX_CHIP_COUNT;
+    this.displayTechs = this.memberInfo.techs.slice(0, 3);
+  }
 
   @HostListener('window:resize')
   onResize() {

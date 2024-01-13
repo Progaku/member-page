@@ -142,4 +142,11 @@ export class FirestoreService {
       }),
     );
   }
+
+  updateMyInfo(id: string, param: UpdateMyInfoRequest): Observable<void> {
+    const myInfoRef = doc(
+      firestore, FIRESTORE_NAME, id
+    );
+    return from(updateDoc(myInfoRef, { ...param }));
+  }
 }

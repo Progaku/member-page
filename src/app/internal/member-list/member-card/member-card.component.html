@@ -2,11 +2,6 @@
   <ng-template pTemplate="title">
     <div class="flex flex-row gap-2">
       <div>{{ memberInfo.nickname }}</div>
-      @if (memberInfo.twitterUserId) {
-        <div>
-          <i class="pi pi-twitter"></i>
-        </div>
-      }
     </div>
   </ng-template>
 
@@ -32,8 +27,11 @@
 
       <app-item-list title="技術">
         <div class="flex align-items-center gap-2 flex-wrap">
-          @for (tech of memberInfo.techs; track tech) {
+          @for (tech of displayTechs; track tech) {
             <p-chip [label]="tech"></p-chip>
+          }
+          @if (isOverTechsMaxCount) {
+            <span>...and more</span>
           }
         </div>
       </app-item-list>
