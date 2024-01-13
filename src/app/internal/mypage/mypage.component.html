@@ -3,7 +3,7 @@
     <div class="flex flex-column gap-3">
       <p-image
         [imageStyle]="{ borderRadius: '10px' }"
-        [src]="myIconPath"
+        [src]="myIconPath ?? 'assets/no-image.png'"
         alt="icon"
       ></p-image>
       <div class="flex justify-content-center">
