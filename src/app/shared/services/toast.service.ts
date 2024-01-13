@@ -8,7 +8,7 @@ type MessageOptions = Omit<Message, OmittedKeys>;
   providedIn: 'root'
 })
 export class ToastService {
-  private readonly messageService = inject(MessageService);
+  private messageService = inject(MessageService);
 
   clear(): void {
     this.messageService.clear();
