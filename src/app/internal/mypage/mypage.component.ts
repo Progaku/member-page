@@ -11,7 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { Subscription } from 'rxjs';
 
-import { FirestoreService, MemberDetail, UpdateMyInfoRequest } from '@/api/firestore.service';
+import { FirestoreService, MemberDetail } from '@/api/firestore.service';
 import { FormErrorComponent } from '@/shared/components/atoms/form-error/form-error.component';
 import { FormLabelComponent } from '@/shared/components/atoms/form-label/form-label.component';
 import { FormFieldComponent } from '@/shared/components/molecules/form-field/form-field.component';
