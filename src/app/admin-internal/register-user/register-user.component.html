@@ -1,0 +1,44 @@
+<p-card header="ユーザ作成">
+  <div class="flex flex-column gap-3 flex-1">
+    <div class="flex flex-column justify-content-start gap-2">
+      <app-form-field [holdErrorFrame]="true">
+        <app-form-label for="memberId">合言葉</app-form-label>
+        <input
+          [formControl]="userIdForm"
+          [class.ng-invalid]="userIdForm.invalid"
+          appForm
+          id="memberId"
+          type="text"
+          pInputText
+          placeholder="合言葉"
+        />
+        @if (userIdForm.dirty && userIdForm.hasError('required')) {
+          <app-form-error>入力は必須です</app-form-error>
+        }
+      </app-form-field>
+
+      <app-form-field [holdErrorFrame]="true">
+        <app-form-label for="nicknameForm">ニックネーム</app-form-label>
+        <input
+          [formControl]="nicknameForm"
+          [class.ng-invalid]="nicknameForm.invalid"
+          appForm
+          id="nicknameForm"
+          type="text"
+          pInputText
+          placeholder="ニックネーム"
+        />
+        @if (nicknameForm.dirty && nicknameForm.hasError('required')) {
+          <app-form-error>入力は必須です</app-form-error>
+        }
+      </app-form-field>
+    </div>
+
+    <div class="flex justify-content-center">
+      <p-button
+        [disabled]="formGroup.invalid"
+        (onClick)="onClickRegisterButton()"
+      >登録</p-button>
+    </div>
+  </div>
+</p-card>

@@ -57,4 +57,8 @@ export class LoginComponent implements OnDestroy {
       })
     );
   }
+
+  onClickAdminLogin(): void {
+    this.router.navigate(['/login/admin']).then();
+  }
 }

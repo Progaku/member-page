@@ -1,5 +1,16 @@
 import { Injectable } from '@angular/core';
-import { collection, doc, getDoc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  serverTimestamp,
+  query,
+  updateDoc,
+  where
+} from 'firebase/firestore';
 import { from, map, Observable } from 'rxjs';
 
 import { firestore } from './firebase';
@@ -55,6 +66,12 @@ export const MemberDetailInitial: MemberDetail = {
 /** ログインユーザ */
 export interface LoginUser {
   id: string;
+}
+
+/** ユーザ登録リクエスト */
+export interface RegisterUserRequest {
+  memberId: string;
+  nickname: string;
 }
 
 /** プロフィール更新 */
@@ -152,6 +169,25 @@ export class FirestoreService {
       map((snap) => {
         return snap.exists();
       }),
+    );
+  }
+
+  registerUser(param: RegisterUserRequest): Observable<void> {
+    const memberRef = collection(firestore, FIRESTORE_NAME);
+    return from(addDoc(memberRef, {
+      nickname: param.nickname,
+      memberId: param.memberId,
+      createdAt: serverTimestamp(),
+      iconImage: null,
+      twitterUserId: null,
+      birthday: null,
+      prefectures: '',
+      techs: [],
+      participationReason: '',
+      hobby: [],
+      description: '',
+    })).pipe(
+      map(() => {})
     );
   }
 

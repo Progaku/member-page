@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { deleteObject, getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { catchError, from, map, Observable, of } from 'rxjs';
 
-import { firebaseStorage } from '@/api/firebase';
+import { firebaseStorage } from './firebase';
 
 const fireStorageRef = (uuid: string) => `memberIcon/${uuid}`;
 

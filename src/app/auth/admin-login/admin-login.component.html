@@ -1,0 +1,52 @@
+<div class="p-3">
+  <h1>管理者用ログインページ</h1>
+  <div class="flex justify-content-center">
+    <p-card
+      class="flex flex-column p-3"
+      header="管理者用ログイン"
+    >
+      <div class="flex flex-column align-items-center m-3 gap-3">
+        <app-form-field [holdErrorFrame]="true">
+          <app-form-label for="idForm">ID</app-form-label>
+          <input
+            [formControl]="idForm"
+            [class.ng-invalid]="idForm.invalid"
+            appForm
+            id="idForm"
+            type="text"
+            pInputText
+          />
+          @if (idForm.dirty && idForm.hasError('required')) {
+            <app-form-error>入力は必須です</app-form-error>
+          }
+          @if (idForm.dirty && idForm.hasError('email')) {
+            <app-form-error>形式が異なります</app-form-error>
+          }
+        </app-form-field>
+        <app-form-field [holdErrorFrame]="true">
+          <app-form-label for="passwordForm">Password</app-form-label>
+          <p-password
+            [formControl]="passwordForm"
+            [class.ng-invalid]="passwordForm.invalid"
+            [feedback]="false"
+            [toggleMask]="true"
+            appForm
+            id="passwordForm"
+          ></p-password>
+          @if (passwordForm.dirty && passwordForm.hasError('required')) {
+            <app-form-error>入力は必須です</app-form-error>
+          }
+        </app-form-field>
+        <p-button [disabled]="formGroup.invalid" (onClick)="onClickAdminLogin()"
+          >ログイン</p-button
+        >
+      </div>
+
+      <p-button
+        [text]="true"
+        (onClick)="onClickNormalLogin()"
+        severity="info"
+      >通常ログインページへ</p-button>
+    </p-card>
+  </div>
+</div>

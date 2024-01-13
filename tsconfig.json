@@ -25,7 +25,8 @@
     ],
     "paths": {
       "@/api/*": ["./src/app/api/*"],
-      "@/login/*": ["./src/app/login/*"],
+      "@/auth/*": ["./src/app/auth/*"],
+      "@/admin-internal/*": ["./src/app/admin-internal/*"],
       "@/internal/*": ["./src/app/internal/*"],
       "@/shared/*": ["./src/app/shared/*"],
       "@/environments/*": ["./src/environments/*"],
