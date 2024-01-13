@@ -10,18 +10,18 @@
         <app-form-field [holdErrorFrame]="true">
           <app-form-label for="userIdForm">合言葉</app-form-label>
           <input
-            [formControl]="userIdForm"
-            [class.ng-invalid]="userIdForm.invalid"
+            [formControl]="memberIdForm"
+            [class.ng-invalid]="memberIdForm.invalid"
             appForm
             id="userIdForm"
             type="text"
             pInputText
           />
-          @if (userIdForm.dirty && userIdForm.hasError('required')) {
+          @if (memberIdForm.dirty && memberIdForm.hasError('required')) {
             <app-form-error>入力は必須です</app-form-error>
           }
         </app-form-field>
-        <p-button [disabled]="userIdForm.invalid" (onClick)="onClickLogin()"
+        <p-button [disabled]="memberIdForm.invalid" (onClick)="onClickLogin()"
           >ログイン</p-button
         >
       </div>

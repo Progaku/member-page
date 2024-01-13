@@ -6,6 +6,7 @@ import { firestore } from './firebase';
 
 const FIRESTORE_NAME = 'member';
 
+/** メンバー一覧 */
 export interface Member {
   id: string;
   nickname: string;
@@ -26,6 +27,7 @@ export const MemberInitial: Member = {
   techs: [],
 };
 
+/** メンバー詳細 */
 export interface MemberDetail {
   nickname: string;
   iconImage: string | null;
@@ -50,6 +52,7 @@ export const MemberDetailInitial: MemberDetail = {
   description: '',
 };
 
+/** ログインユーザ */
 export interface LoginUser {
   id: string;
 }
@@ -109,10 +112,10 @@ export class FirestoreService {
     );
   }
 
-  getMemberByNickname(nickname: string): Observable<LoginUser | null> {
+  getMemberByMemberId(memberId: string): Observable<LoginUser | null> {
     const loginUserRef = query(
       collection(firestore, FIRESTORE_NAME),
-      where('nickname', '==', nickname)
+      where('memberId', '==', memberId)
     );
     return from(getDocs(loginUserRef)).pipe(
       map((param): LoginUser | null => {
@@ -126,6 +129,17 @@ export class FirestoreService {
           id: data.id
         };
       })
+    );
+  }
+
+  isExistMemberById(id: string): Observable<boolean> {
+    const memberRef = doc(
+      firestore, FIRESTORE_NAME, id
+    );
+    return from(getDoc(memberRef)).pipe(
+      map((snap) => {
+        return snap.exists();
+      }),
     );
   }
 }

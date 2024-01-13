@@ -28,6 +28,7 @@ export class MemberDetailComponent implements OnInit {
   private router = inject(Router);
   private toastService = inject(ToastService);
 
+  /** 詳細 */
   memberDetail: MemberDetail = MemberDetailInitial;
 
   /** 現在の画面幅 */
@@ -37,7 +38,7 @@ export class MemberDetailComponent implements OnInit {
     const resolverData = this.activatedRoute.snapshot.data;
     const memberDetail = resolverData['memberDetail'];
     if (!memberDetail) {
-      this.toastService.error('failed get member detail.');
+      this.toastService.error('failed get member detail');
       this.router.navigate(['/internal/members']).then();
       return;
     }
@@ -49,6 +50,7 @@ export class MemberDetailComponent implements OnInit {
     this.currentWindowWidth = window.innerWidth;
   }
 
+  /** 画像幅 */
   get imageWidth(): string {
     if (this.currentWindowWidth > TABLET_THRESHOLD_WIDTH) {
       return '400';

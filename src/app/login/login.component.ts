@@ -35,7 +35,7 @@ export class LoginComponent implements OnDestroy {
   private storageService = inject(StorageService);
   private firestoreService = inject(FirestoreService);
 
-  userIdForm = new FormControl<string>('', {
+  memberIdForm = new FormControl<string>('', {
     nonNullable: true,
     validators: [Validators.required],
   });
@@ -46,7 +46,7 @@ export class LoginComponent implements OnDestroy {
 
   onClickLogin(): void {
     this.subscription.add(
-      this.firestoreService.getMemberByNickname(this.userIdForm.value).subscribe((item) => {
+      this.firestoreService.getMemberByMemberId(this.memberIdForm.value).subscribe((item) => {
         if (item) {
           this.storageService.setUserId(item.id);
           this.toastService.info('login');
