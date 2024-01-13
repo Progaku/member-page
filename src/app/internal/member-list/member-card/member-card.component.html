@@ -8,8 +8,9 @@
   <div class="flex flex-row gap-3">
     <p-image
       [src]="iconImagePath ?? 'assets/no-image.png'"
-      [imageStyle]="{ borderRadius: '10px' }"
+      [imageStyle]="{ borderRadius: '10px', objectFit: 'cover' }"
       [width]="imageWidth"
+      height="150"
     ></p-image>
 
     <div class="flex flex-column gap-2">

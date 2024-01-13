@@ -2,9 +2,10 @@
   <div class="flex flex-row flex-wrap gap-6">
     <div class="flex flex-column gap-3">
       <p-image
-        [imageStyle]="{ borderRadius: '10px' }"
+        [imageStyle]="{ borderRadius: '10px', objectFit: 'cover' }"
         [src]="myIconPath ?? 'assets/no-image.png'"
         [width]="imageWidth"
+        height="250"
         alt="icon"
       ></p-image>
       <div class="flex justify-content-center">

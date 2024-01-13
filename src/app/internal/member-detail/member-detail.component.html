@@ -5,7 +5,12 @@
     </div>
   </ng-template>
   <div class="flex flex-row flex-wrap gap-6">
-    <p-image [src]="iconImagePath ?? 'assets/no-image.png'" [width]="imageWidth"></p-image>
+    <p-image
+      [src]="iconImagePath ?? 'assets/no-image.png'"
+      [imageStyle]="{ borderRadius: '10px', objectFit: 'cover' }"
+      [width]="imageWidth"
+      height="250"
+    ></p-image>
     <div class="flex flex-column gap-2">
       @if (memberDetail.twitterUserId !== null) {
         <app-item-list
