@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, doc, getDoc, getDocs, orderBy, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore';
 import { from, map, Observable } from 'rxjs';
 
 import { firestore } from './firebase';
@@ -55,6 +55,18 @@ export const MemberDetailInitial: MemberDetail = {
 /** ログインユーザ */
 export interface LoginUser {
   id: string;
+}
+
+/** プロフィール更新 */
+export interface UpdateMyInfoRequest {
+  nickname: string;
+  twitterUserId: string | null;
+  birthday: string | null;
+  prefectures: string;
+  techs: string[];
+  participationReason: string;
+  hobby: string[];
+  description: string;
 }
 
 @Injectable({

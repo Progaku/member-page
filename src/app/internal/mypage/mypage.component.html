@@ -13,112 +13,121 @@
       </div>
     </div>
 
-    <div class="flex flex-column gap-2 flex-1">
-      <app-form-field [holdErrorFrame]="true">
-        <app-form-label for="nicknameForm">ニックネーム</app-form-label>
-        <input
-          [formControl]="nicknameForm"
-          [class.ng-invalid]="nicknameForm.invalid"
-          appForm
-          id="nicknameForm"
-          type="text"
-          pInputText
-          placeholder="ニックネーム"
-        />
-        @if (nicknameForm.dirty && nicknameForm.hasError('required')) {
-          <app-form-error>入力は必須です</app-form-error>
-        }
-      </app-form-field>
+    <div class="flex flex-column gap-3 flex-1">
+      <div class="flex flex-column justify-content-start gap-2">
+        <app-form-field [holdErrorFrame]="true">
+          <app-form-label for="nicknameForm">ニックネーム</app-form-label>
+          <input
+            [formControl]="nicknameForm"
+            [class.ng-invalid]="nicknameForm.invalid"
+            appForm
+            id="nicknameForm"
+            type="text"
+            pInputText
+            placeholder="ニックネーム"
+          />
+          @if (nicknameForm.dirty && nicknameForm.hasError('required')) {
+            <app-form-error>入力は必須です</app-form-error>
+          }
+        </app-form-field>
 
-      <app-form-field [holdErrorFrame]="true">
-        <app-form-label for="twitterIdForm">X(Twitter)ユーザID</app-form-label>
-        <input
-          [formControl]="twitterUserIdForm"
-          [maxlength]="100"
-          appForm
-          id="twitterIdForm"
-          type="text"
-          pInputText
-          placeholder="@以降を入力ください"
-        />
-        @if (twitterUserIdForm.dirty && twitterUserIdForm.hasError('pattern')) {
-          <app-form-error>使用できない文字が含まれています</app-form-error>
-        }
-      </app-form-field>
+        <app-form-field [holdErrorFrame]="true">
+          <app-form-label for="twitterIdForm">X(Twitter)ユーザID</app-form-label>
+          <input
+            [formControl]="twitterUserIdForm"
+            [maxlength]="100"
+            appForm
+            id="twitterIdForm"
+            type="text"
+            pInputText
+            placeholder="@以降を入力ください"
+          />
+          @if (twitterUserIdForm.dirty && twitterUserIdForm.hasError('pattern')) {
+            <app-form-error>使用できない文字が含まれています</app-form-error>
+          }
+        </app-form-field>
 
-      <app-form-field [holdErrorFrame]="false">
-        <app-form-label for="birthdayForm">誕生日</app-form-label>
-        <p-calendar
-          [formControl]="birthdayForm"
-          appForm
-          id="birthdayForm"
-          dateFormat="yy/mm/dd"
-          placeholder="yyyy/mm/dd"
-        ></p-calendar>
-      </app-form-field>
+        <app-form-field [holdErrorFrame]="false">
+          <app-form-label for="birthdayForm">誕生日</app-form-label>
+          <p-calendar
+            [formControl]="birthdayForm"
+            appForm
+            id="birthdayForm"
+            dateFormat="yy/mm/dd"
+            placeholder="yyyy/mm/dd"
+          ></p-calendar>
+        </app-form-field>
 
-      <app-form-field [holdErrorFrame]="false">
-        <app-form-label for="prefecturesForm">都道府県</app-form-label>
-        <input
-          [formControl]="prefecturesForm"
-          [maxlength]="prefecturesMaxLength"
-          appForm
-          id="prefecturesForm"
-          type="text"
-          pInputText
-          placeholder="東京都"
-        />
-        @if (prefecturesForm.dirty && prefecturesForm.hasError('maxlength')) {
-          <app-form-error>最大 {{ prefecturesMaxLength }} 文字までです</app-form-error>
-        }
-      </app-form-field>
+        <app-form-field [holdErrorFrame]="false">
+          <app-form-label for="prefecturesForm">都道府県</app-form-label>
+          <input
+            [formControl]="prefecturesForm"
+            [maxlength]="prefecturesMaxLength"
+            appForm
+            id="prefecturesForm"
+            type="text"
+            pInputText
+            placeholder="東京都"
+          />
+          @if (prefecturesForm.dirty && prefecturesForm.hasError('maxlength')) {
+            <app-form-error>最大 {{ prefecturesMaxLength }} 文字までです</app-form-error>
+          }
+        </app-form-field>
 
-      <app-form-field [holdErrorFrame]="false" class="p-fluid">
-        <app-form-label for="techChipForm">取り組んでいる技術</app-form-label>
-        <p-chips
-          [formControl]="techChipForm"
-          appForm
-          id="techChipForm"
-          placeholder="Python, React, AWS"
-        ></p-chips>
-      </app-form-field>
+        <app-form-field [holdErrorFrame]="false" class="p-fluid">
+          <app-form-label for="techChipForm">取り組んでいる技術</app-form-label>
+          <p-chips
+            [formControl]="techChipForm"
+            appForm
+            id="techChipForm"
+            placeholder="Python, React, AWS"
+          ></p-chips>
+        </app-form-field>
 
-      <app-form-field [holdErrorFrame]="false">
-        <app-form-label for="participationReasonForm"
-        >Progakuに参加した理由</app-form-label
-        >
-        <textarea
-          [formControl]="participationReasonForm"
-          [autoResize]="true"
-          appForm
-          id="participationReasonForm"
-          pInputTextarea
-          placeholder="エンジニアになるため"
-          rows="3"
-        ></textarea>
-      </app-form-field>
+        <app-form-field [holdErrorFrame]="false">
+          <app-form-label for="participationReasonForm"
+          >Progakuに参加した理由</app-form-label
+          >
+          <textarea
+            [formControl]="participationReasonForm"
+            [autoResize]="true"
+            appForm
+            id="participationReasonForm"
+            pInputTextarea
+            placeholder="エンジニアになるため"
+            rows="3"
+          ></textarea>
+        </app-form-field>
 
-      <app-form-field [holdErrorFrame]="false" class="p-fluid">
-        <app-form-label for="hobbyForm">趣味</app-form-label>
-        <p-chips
-          [formControl]="hobbyForm"
-          appForm
-          id="hobbyForm"
-          placeholder="ゴルフ, マンガ, カラオケ"
-        ></p-chips>
-      </app-form-field>
+        <app-form-field [holdErrorFrame]="false" class="p-fluid">
+          <app-form-label for="hobbyForm">趣味</app-form-label>
+          <p-chips
+            [formControl]="hobbyForm"
+            appForm
+            id="hobbyForm"
+            placeholder="ゴルフ, マンガ, カラオケ"
+          ></p-chips>
+        </app-form-field>
 
-      <app-form-field [holdErrorFrame]="false">
-        <app-form-label for="descriptionForm">自由記載</app-form-label>
-        <textarea
-          [formControl]="descriptionForm"
-          [autoResize]="true"
-          appForm
-          id="descriptionForm"
-          pInputTextarea
-          rows="5"
-        ></textarea>
-      </app-form-field>
+        <app-form-field [holdErrorFrame]="false">
+          <app-form-label for="descriptionForm">自由記載</app-form-label>
+          <textarea
+            [formControl]="descriptionForm"
+            [autoResize]="true"
+            appForm
+            id="descriptionForm"
+            pInputTextarea
+            rows="5"
+          ></textarea>
+        </app-form-field>
+      </div>
+
+      <div class="flex justify-content-center">
+        <p-button
+          [disabled]="formGroup.invalid"
+          (onClick)="onClickProfileSettingButton()"
+        >設定する</p-button>
+      </div>
     </div>
   </div>
 </p-card>
