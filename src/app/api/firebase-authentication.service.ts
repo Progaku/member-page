@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { getAuth, signInWithEmailAndPassword, signOut, UserCredential } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signInAnonymously,
+  signOut,
+  UserCredential,
+  browserSessionPersistence
+} from 'firebase/auth';
 import { from, Observable } from 'rxjs';
 
 import { firebaseAuth } from './firebase';
@@ -12,7 +19,13 @@ export class FirebaseAuthenticationService {
   constructor() {}
 
   login(userId: string, password: string): Observable<UserCredential> {
+    firebaseAuth.setPersistence(browserSessionPersistence).then();
     return from(signInWithEmailAndPassword(firebaseAuth, userId, password));
+  }
+
+  anonymousLogin(): Observable<UserCredential> {
+    firebaseAuth.setPersistence(browserSessionPersistence).then();
+    return from(signInAnonymously(firebaseAuth));
   }
 
   logout(): Observable<void> {

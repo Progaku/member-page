@@ -161,17 +161,6 @@ export class FirestoreService {
     );
   }
 
-  isExistMemberById(id: string): Observable<boolean> {
-    const memberRef = doc(
-      firestore, FIRESTORE_NAME, id
-    );
-    return from(getDoc(memberRef)).pipe(
-      map((snap) => {
-        return snap.exists();
-      }),
-    );
-  }
-
   registerUser(param: RegisterUserRequest): Observable<void> {
     const memberRef = collection(firestore, FIRESTORE_NAME);
     return from(addDoc(memberRef, {

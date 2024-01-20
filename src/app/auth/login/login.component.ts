@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { Subscription } from 'rxjs';
+import { concatMap, map, of, Subscription } from 'rxjs';
 
+import { FirebaseAuthenticationService } from '@/api/firebase-authentication.service';
 import { FirestoreService } from '@/api/firestore.service';
 import { FormErrorComponent } from '@/shared/components/atoms/form-error/form-error.component';
 import { FormLabelComponent } from '@/shared/components/atoms/form-label/form-label.component';
@@ -34,6 +35,7 @@ export class LoginComponent implements OnDestroy {
   private toastService = inject(ToastService);
   private storageService = inject(StorageService);
   private firestoreService = inject(FirestoreService);
+  private firebaseAuthenticationService = inject(FirebaseAuthenticationService);
 
   memberIdForm = new FormControl<string>('', {
     nonNullable: true,
@@ -46,7 +48,19 @@ export class LoginComponent implements OnDestroy {
 
   onClickLogin(): void {
     this.subscription.add(
-      this.firestoreService.getMemberByMemberId(this.memberIdForm.value).subscribe((item) => {
+      this.firestoreService.getMemberByMemberId(this.memberIdForm.value).pipe(
+        concatMap((item) => {
+          if (item) {
+            return this.firebaseAuthenticationService.anonymousLogin().pipe(
+              map(() => {
+                return item;
+              })
+            );
+          } else {
+            return of(item);
+          }
+        })
+      ).subscribe((item) => {
         if (item) {
           this.storageService.setUserId(item.id);
           this.toastService.info('login');
