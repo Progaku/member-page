@@ -41,7 +41,10 @@ export class RegisterUserComponent implements OnDestroy {
   /** 合言葉 */
   userIdForm = new FormControl<string>('', {
     nonNullable: true,
-    validators: [Validators.required],
+    validators: [
+      Validators.required,
+      Validators.pattern(/^[a-zA-Z0-9_-]+$/)
+    ],
   });
 
   /** ニックネーム */

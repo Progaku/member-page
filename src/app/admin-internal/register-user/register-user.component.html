@@ -15,6 +15,9 @@
         @if (userIdForm.dirty && userIdForm.hasError('required')) {
           <app-form-error>入力は必須です</app-form-error>
         }
+        @if (userIdForm.dirty && userIdForm.hasError('pattern')) {
+          <app-form-error>入力できない文字が含まれます</app-form-error>
+        }
       </app-form-field>
 
       <app-form-field [holdErrorFrame]="true">
