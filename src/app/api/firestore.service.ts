@@ -95,7 +95,7 @@ export class FirestoreService {
   getMembers(): Observable<Member[]> {
     const memberRef = query(
       collection(firestore, FIRESTORE_NAME),
-      orderBy('createdAt')
+      orderBy('createdAt', 'desc')
     );
     return from(getDocs(memberRef)).pipe(
       map((param) => {
