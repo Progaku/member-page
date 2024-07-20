@@ -1,5 +1,12 @@
 # MemberPage
 
+# Init
+
+```sh
+npm install -g @angular/cli
+cp example.env .env
+```
+
 ## serve
 
 ```sh
