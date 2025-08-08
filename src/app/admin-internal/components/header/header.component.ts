@@ -5,13 +5,12 @@ import { ButtonModule } from 'primeng/button';
 import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [
-    ButtonModule
-  ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+    selector: 'app-header',
+    imports: [
+        ButtonModule
+    ],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
   private toastService = inject(ToastService);

@@ -11,17 +11,16 @@ import { ItemListComponent } from '@/internal/components/item-list/item-list.com
 import { TABLET_THRESHOLD_WIDTH } from '@/shared/constants/breakpoint';
 
 @Component({
-  selector: 'app-member-card',
-  standalone: true,
-  imports: [
-    ImageModule,
-    ItemListComponent,
-    ChipModule,
-    CardModule,
-    DatePipe
-  ],
-  templateUrl: './member-card.component.html',
-  styleUrl: './member-card.component.scss'
+    selector: 'app-member-card',
+    imports: [
+        ImageModule,
+        ItemListComponent,
+        ChipModule,
+        CardModule,
+        DatePipe
+    ],
+    templateUrl: './member-card.component.html',
+    styleUrl: './member-card.component.scss'
 })
 export class MemberCardComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();

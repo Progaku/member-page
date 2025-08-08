@@ -15,19 +15,18 @@ import { StorageService } from '@/shared/services/storage.service';
 import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    CardModule,
-    FormFieldComponent,
-    ReactiveFormsModule,
-    InputTextModule,
-    ButtonModule,
-    FormLabelComponent,
-    FormErrorComponent,
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+    selector: 'app-login',
+    imports: [
+        CardModule,
+        FormFieldComponent,
+        ReactiveFormsModule,
+        InputTextModule,
+        ButtonModule,
+        FormLabelComponent,
+        FormErrorComponent,
+    ],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnDestroy {
   private subscription = new Subscription();

@@ -23,24 +23,23 @@ import { StorageService } from '@/shared/services/storage.service';
 import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
-  selector: 'app-mypage',
-  standalone: true,
-  imports: [
-    ImageModule,
-    CardModule,
-    ButtonModule,
-    FormFieldComponent,
-    InputTextModule,
-    ReactiveFormsModule,
-    CalendarModule,
-    FormLabelComponent,
-    FormErrorComponent,
-    InputTextareaModule,
-    ChipsModule,
-    FileUploadModule
-  ],
-  templateUrl: './mypage.component.html',
-  styleUrl: './mypage.component.scss'
+    selector: 'app-mypage',
+    imports: [
+        ImageModule,
+        CardModule,
+        ButtonModule,
+        FormFieldComponent,
+        InputTextModule,
+        ReactiveFormsModule,
+        CalendarModule,
+        FormLabelComponent,
+        FormErrorComponent,
+        InputTextareaModule,
+        ChipsModule,
+        FileUploadModule
+    ],
+    templateUrl: './mypage.component.html',
+    styleUrl: './mypage.component.scss'
 })
 export class MypageComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();

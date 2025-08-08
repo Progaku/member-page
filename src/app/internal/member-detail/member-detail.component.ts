@@ -13,17 +13,16 @@ import { TABLET_THRESHOLD_WIDTH } from '@/shared/constants/breakpoint';
 import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
-  selector: 'app-member-detail',
-  standalone: true,
-  imports: [
-    ItemListComponent,
-    ChipModule,
-    ImageModule,
-    CardModule,
-    DatePipe
-  ],
-  templateUrl: './member-detail.component.html',
-  styleUrl: './member-detail.component.scss'
+    selector: 'app-member-detail',
+    imports: [
+        ItemListComponent,
+        ChipModule,
+        ImageModule,
+        CardModule,
+        DatePipe
+    ],
+    templateUrl: './member-detail.component.html',
+    styleUrl: './member-detail.component.scss'
 })
 export class MemberDetailComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();

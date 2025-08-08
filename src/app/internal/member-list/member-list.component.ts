@@ -6,14 +6,13 @@ import { Member } from '@/api/firestore.service';
 import { MemberCardComponent } from '@/internal/member-list/member-card/member-card.component';
 
 @Component({
-  selector: 'app-member-list',
-  standalone: true,
-  imports: [
-    MemberCardComponent,
-    AsyncPipe
-  ],
-  templateUrl: './member-list.component.html',
-  styleUrl: './member-list.component.scss'
+    selector: 'app-member-list',
+    imports: [
+        MemberCardComponent,
+        AsyncPipe
+    ],
+    templateUrl: './member-list.component.html',
+    styleUrl: './member-list.component.scss'
 })
 export class MemberListComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);

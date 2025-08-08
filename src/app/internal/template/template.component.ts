@@ -5,11 +5,10 @@ import { HeaderComponent } from '@/internal/components/header/header.component';
 import { StorageService } from '@/shared/services/storage.service';
 
 @Component({
-  selector: 'app-template',
-  standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
-  templateUrl: './template.component.html',
-  styleUrl: './template.component.scss'
+    selector: 'app-template',
+    imports: [RouterOutlet, HeaderComponent],
+    templateUrl: './template.component.html',
+    styleUrl: './template.component.scss'
 })
 export class TemplateComponent implements OnDestroy{
   private storageService = inject(StorageService);

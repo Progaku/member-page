@@ -15,24 +15,23 @@ import { FormLabelComponent } from '@/shared/components/atoms/form-label/form-la
 import { FormFieldComponent } from '@/shared/components/molecules/form-field/form-field.component';
 
 @Component({
-  selector: 'app-register-user',
-  standalone: true,
-  imports: [
-    ButtonModule,
-    CalendarModule,
-    CardModule,
-    ChipsModule,
-    FormErrorComponent,
-    FormFieldComponent,
-    FormLabelComponent,
-    FormsModule,
-    ImageModule,
-    InputTextModule,
-    InputTextareaModule,
-    ReactiveFormsModule
-  ],
-  templateUrl: './register-user.component.html',
-  styleUrl: './register-user.component.scss'
+    selector: 'app-register-user',
+    imports: [
+        ButtonModule,
+        CalendarModule,
+        CardModule,
+        ChipsModule,
+        FormErrorComponent,
+        FormFieldComponent,
+        FormLabelComponent,
+        FormsModule,
+        ImageModule,
+        InputTextModule,
+        InputTextareaModule,
+        ReactiveFormsModule
+    ],
+    templateUrl: './register-user.component.html',
+    styleUrl: './register-user.component.scss'
 })
 export class RegisterUserComponent implements OnDestroy {
   private subscription = new Subscription();

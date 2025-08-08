@@ -5,14 +5,13 @@ import { HeaderComponent } from '@/admin-internal/components/header/header.compo
 import { FirebaseAuthenticationService } from '@/api/firebase-authentication.service';
 
 @Component({
-  selector: 'app-template',
-  standalone: true,
-  imports: [
-    HeaderComponent,
-    RouterOutlet
-  ],
-  templateUrl: './template.component.html',
-  styleUrl: './template.component.scss'
+    selector: 'app-template',
+    imports: [
+        HeaderComponent,
+        RouterOutlet
+    ],
+    templateUrl: './template.component.html',
+    styleUrl: './template.component.scss'
 })
 export class TemplateComponent implements OnDestroy {
   private firebaseAuthenticationService = inject(FirebaseAuthenticationService);

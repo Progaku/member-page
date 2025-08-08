@@ -14,21 +14,20 @@ import { FormFieldComponent } from '@/shared/components/molecules/form-field/for
 import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
-  selector: 'app-admin-login',
-  standalone: true,
-  imports: [
-    ButtonModule,
-    CardModule,
-    FormErrorComponent,
-    FormFieldComponent,
-    FormLabelComponent,
-    PasswordModule,
-    FormsModule,
-    InputTextModule,
-    ReactiveFormsModule
-  ],
-  templateUrl: './admin-login.component.html',
-  styleUrl: './admin-login.component.scss'
+    selector: 'app-admin-login',
+    imports: [
+        ButtonModule,
+        CardModule,
+        FormErrorComponent,
+        FormFieldComponent,
+        FormLabelComponent,
+        PasswordModule,
+        FormsModule,
+        InputTextModule,
+        ReactiveFormsModule
+    ],
+    templateUrl: './admin-login.component.html',
+    styleUrl: './admin-login.component.scss'
 })
 export class AdminLoginComponent implements OnDestroy {
   private subscription = new Subscription();
