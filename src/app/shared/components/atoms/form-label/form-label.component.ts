@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
   selector: 'app-form-label',
@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './form-label.component.scss'
 })
 export class FormLabelComponent {
-  @Input({ required: true }) for = '';
+  for = input.required<string>()
 }

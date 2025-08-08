@@ -1,5 +1,4 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Member } from '@/api/firestore.service';
@@ -9,7 +8,6 @@ import { MemberCardComponent } from '@/internal/member-list/member-card/member-c
     selector: 'app-member-list',
     imports: [
         MemberCardComponent,
-        AsyncPipe
     ],
     templateUrl: './member-list.component.html',
     styleUrl: './member-list.component.scss'
@@ -17,11 +15,11 @@ import { MemberCardComponent } from '@/internal/member-list/member-card/member-c
 export class MemberListComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
-  members: Member[] = [];
+  members = signal<Member[]>([]);
 
   ngOnInit(): void {
     const resolverData = this.activatedRoute.snapshot.data;
-    this.members = resolverData['memberList'];
+    this.members.set(resolverData['memberList']);
   }
 
   toMemberDetail(id: string): void {

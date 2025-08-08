@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
@@ -16,13 +16,13 @@ export class HeaderComponent {
   private router = inject(Router);
 
   /** 現在の画面幅 */
-  currentWindowWidth = window.innerWidth;
+  currentWindowWidth = signal(window.innerWidth);
   /** タブレットとの閾値 */
-  TABLET_THRESHOLD_WIDTH = TABLET_THRESHOLD_WIDTH;
+  readonly TABLET_THRESHOLD_WIDTH = TABLET_THRESHOLD_WIDTH;
 
   @HostListener('window:resize')
   onResize() {
-    this.currentWindowWidth = window.innerWidth;
+    this.currentWindowWidth.set(window.innerWidth);
   }
 
   /** メンバー一覧 */

@@ -1,41 +1,41 @@
 <p-card>
   <ng-template pTemplate="title">
     <div class="flex flex-row gap-2 align-items-center">
-      <div>{{ memberDetail.nickname }}</div>
+      <div>{{ memberDetail().nickname }}</div>
     </div>
   </ng-template>
   <div class="flex flex-row flex-wrap gap-6">
     <p-image
-      [src]="iconImagePath ?? 'assets/no-image.png'"
+      [src]="iconImagePath() ?? 'assets/no-image.png'"
       [imageStyle]="{ borderRadius: '10px', objectFit: 'cover' }"
       [width]="imageWidth"
       height="250"
     ></p-image>
     <div class="flex flex-column gap-2">
-      @if (memberDetail.twitterUserId !== null) {
+      @if (memberDetail().twitterUserId !== null) {
         <app-item-list
           title="X(twitter)"
         >
-          <p>{{ memberDetail.twitterUserId }}</p>
+          <p>{{ memberDetail().twitterUserId }}</p>
         </app-item-list>
 
       }
 
       <app-item-list title="誕生日">
-        @if (memberDetail.birthday) {
-          <p>{{ memberDetail.birthday | date: 'yyyy/MM/dd' }}</p>
+        @if (memberDetail().birthday) {
+          <p>{{ memberDetail().birthday | date: 'yyyy/MM/dd' }}</p>
         } @else {
           <p>????/??/??</p>
         }
       </app-item-list>
 
       <app-item-list title="都道府県">
-        <p>{{ memberDetail.prefectures }}</p>
+        <p>{{ memberDetail().prefectures }}</p>
       </app-item-list>
 
       <app-item-list title="技術">
         <div class="flex align-items-center gap-2 flex-wrap">
-          @for (tech of memberDetail.techs; track tech) {
+          @for (tech of memberDetail().techs; track tech) {
             <p-chip [label]="tech"></p-chip>
           }
         </div>
@@ -43,13 +43,13 @@
 
       <app-item-list title="Progakuに参加した理由">
         <div>
-          {{ memberDetail.participationReason }}
+          {{ memberDetail().participationReason }}
         </div>
       </app-item-list>
 
       <app-item-list title="趣味">
         <div class="flex align-items-center gap-2 flex-wrap">
-          @for (h of memberDetail.hobby; track h) {
+          @for (h of memberDetail().hobby; track h) {
             <p-chip [label]="h"></p-chip>
           }
         </div>
@@ -57,7 +57,7 @@
 
       <app-item-list title="何でも記載">
         <div>
-          {{ memberDetail.description }}
+          {{ memberDetail().description }}
         </div>
       </app-item-list>
     </div>

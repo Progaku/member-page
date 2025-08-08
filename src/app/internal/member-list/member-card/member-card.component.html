@@ -1,7 +1,7 @@
 <p-card>
   <ng-template pTemplate="title">
     <div class="flex flex-row gap-2">
-      <div>{{ memberInfo.nickname }}</div>
+      <div>{{ memberInfo().nickname }}</div>
     </div>
   </ng-template>
 
@@ -15,15 +15,15 @@
 
     <div class="flex flex-column gap-2">
       <app-item-list title="誕生日">
-        @if (memberInfo.birthday) {
-          <p>{{ memberInfo.birthday | date: 'yyyy/MM/dd' }}</p>
+        @if (memberInfo().birthday) {
+          <p>{{ memberInfo().birthday | date: 'yyyy/MM/dd' }}</p>
         } @else {
           <p>????/??/??</p>
         }
       </app-item-list>
 
       <app-item-list title="都道府県">
-        <p>{{ memberInfo.prefectures }}</p>
+        <p>{{ memberInfo().prefectures }}</p>
       </app-item-list>
 
       <app-item-list title="技術">

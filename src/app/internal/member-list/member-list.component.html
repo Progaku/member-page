@@ -1,5 +1,5 @@
 <div class="grid">
-  @for (m of members; track m) {
+  @for (m of members(); track m) {
     <div class="col-12 lg:col-6">
       <app-member-card
         [memberInfo]="m"

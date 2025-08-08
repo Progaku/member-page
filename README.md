@@ -21,9 +21,3 @@ ng serve
 ng build
 firebase deploy
 ```
-
-## formatter
-
-```sh
-npx eslint . --fix
-```

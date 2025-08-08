@@ -50,13 +50,15 @@
 
         <app-form-field [holdErrorFrame]="false">
           <app-form-label for="birthdayForm">誕生日</app-form-label>
-          <p-calendar
+          <p-datepicker
             [formControl]="birthdayForm"
+            [showIcon]="true"
+            [iconDisplay]="'input'"
             appForm
             id="birthdayForm"
             dateFormat="yy/mm/dd"
             placeholder="yyyy/mm/dd"
-          ></p-calendar>
+          ></p-datepicker>
         </app-form-field>
 
         <app-form-field [holdErrorFrame]="false">
@@ -77,12 +79,13 @@
 
         <app-form-field [holdErrorFrame]="false" class="p-fluid">
           <app-form-label for="techChipForm">取り組んでいる技術</app-form-label>
-          <p-chips
+          <p-autocomplete
             [formControl]="techChipForm"
             appForm
-            id="techChipForm"
-            placeholder="Python, React, AWS"
-          ></p-chips>
+            inputId="techChipForm"
+            multiple
+            fluid
+          ></p-autocomplete>
         </app-form-field>
 
         <app-form-field [holdErrorFrame]="false">
@@ -102,12 +105,14 @@
 
         <app-form-field [holdErrorFrame]="false" class="p-fluid">
           <app-form-label for="hobbyForm">趣味</app-form-label>
-          <p-chips
+          <p-autocomplete
             [formControl]="hobbyForm"
             appForm
             id="hobbyForm"
             placeholder="ゴルフ, マンガ, カラオケ"
-          ></p-chips>
+            multiple
+            fluid
+          ></p-autocomplete>
         </app-form-field>
 
         <app-form-field [holdErrorFrame]="false">

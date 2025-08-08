@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
   selector: 'app-form-field',
@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './form-field.component.scss'
 })
 export class FormFieldComponent {
-  @Input({ required: true }) holdErrorFrame = true;
+  holdErrorFrame = input.required<boolean>()
 }

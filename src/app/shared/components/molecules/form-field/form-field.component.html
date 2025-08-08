@@ -5,7 +5,7 @@
 
   <ng-content select="[appHint], app-form-hint"></ng-content>
 
-  @if (holdErrorFrame) {
+  @if (holdErrorFrame()) {
     <div class="h-1rem">
       <ng-content select="[appError], app-form-error"></ng-content>
     </div>

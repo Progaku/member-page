@@ -1,12 +1,8 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
-import { ChipsModule } from 'primeng/chips';
-import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { Subscription } from 'rxjs';
 
 import { FirestoreService } from '@/api/firestore.service';
@@ -18,16 +14,12 @@ import { FormFieldComponent } from '@/shared/components/molecules/form-field/for
     selector: 'app-register-user',
     imports: [
         ButtonModule,
-        CalendarModule,
         CardModule,
-        ChipsModule,
         FormErrorComponent,
         FormFieldComponent,
         FormLabelComponent,
         FormsModule,
-        ImageModule,
         InputTextModule,
-        InputTextareaModule,
         ReactiveFormsModule
     ],
     templateUrl: './register-user.component.html',

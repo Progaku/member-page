@@ -2,14 +2,14 @@ import { Component, HostListener, inject, OnDestroy, OnInit } from '@angular/cor
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { CardModule } from 'primeng/card';
-import { ChipsModule } from 'primeng/chips';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 import { concat, concatMap, forkJoin, map, Observable, of, Subscription } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -25,18 +25,18 @@ import { ToastService } from '@/shared/services/toast.service';
 @Component({
     selector: 'app-mypage',
     imports: [
-        ImageModule,
-        CardModule,
-        ButtonModule,
-        FormFieldComponent,
-        InputTextModule,
-        ReactiveFormsModule,
-        CalendarModule,
-        FormLabelComponent,
-        FormErrorComponent,
-        InputTextareaModule,
-        ChipsModule,
-        FileUploadModule
+      ImageModule,
+      CardModule,
+      AutoCompleteModule,
+      ButtonModule,
+      FormFieldComponent,
+      InputTextModule,
+      ReactiveFormsModule,
+      DatePickerModule,
+      FormLabelComponent,
+      FormErrorComponent,
+      TextareaModule,
+      FileUploadModule
     ],
     templateUrl: './mypage.component.html',
     styleUrl: './mypage.component.scss'

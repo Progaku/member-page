@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-item-list',
-  standalone: true,
   templateUrl: './item-list.component.html',
-  styleUrl: './item-list.component.scss'
+  styleUrl: './item-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemListComponent {
-  @Input({ required: true }) title = '';
+  title = input.required<string>()
 }

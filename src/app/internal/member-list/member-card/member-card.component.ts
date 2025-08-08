@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, HostListener, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import {Component, HostListener, inject, input, OnDestroy, OnInit, signal} from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
 import { ImageModule } from 'primeng/image';
@@ -28,7 +28,7 @@ export class MemberCardComponent implements OnInit, OnDestroy {
   /** チップ表示最大数 */
   private readonly DISPLAY_MAX_CHIP_COUNT = 3;
 
-  @Input({ required: true }) memberInfo: Member = MemberInitial;
+  memberInfo = input.required<Member>()
 
   /** チップ表示最大数を超えているかどうか */
   isOverTechsMaxCount = false;
@@ -38,14 +38,15 @@ export class MemberCardComponent implements OnInit, OnDestroy {
   iconImagePath: string | null = null;
 
   /** 現在の画面幅 */
-  currentWindowWidth = window.innerWidth;
+  private currentWindowWidth = signal(window.innerWidth);
 
   ngOnInit(): void {
-    this.isOverTechsMaxCount = this.memberInfo.techs.length > this.DISPLAY_MAX_CHIP_COUNT;
-    this.displayTechs = this.memberInfo.techs.slice(0, 3);
-    if (this.memberInfo.iconImage) {
+    this.isOverTechsMaxCount = this.memberInfo().techs.length > this.DISPLAY_MAX_CHIP_COUNT;
+    this.displayTechs = this.memberInfo().techs.slice(0, 3);
+    const iconImage = this.memberInfo().iconImage
+    if (iconImage) {
       this.subscription.add(
-        this.cloudStorageService.getImageUri(this.memberInfo.iconImage).pipe(
+        this.cloudStorageService.getImageUri(iconImage).pipe(
           filter((item): item is string => item !== null)
         ).subscribe((path) => {
           this.iconImagePath = path;
@@ -60,11 +61,11 @@ export class MemberCardComponent implements OnInit, OnDestroy {
 
   @HostListener('window:resize')
   onResize() {
-    this.currentWindowWidth = window.innerWidth;
+    this.currentWindowWidth.set(window.innerWidth);
   }
 
   get imageWidth(): string {
-    if (this.currentWindowWidth > TABLET_THRESHOLD_WIDTH) {
+    if (this.currentWindowWidth() > TABLET_THRESHOLD_WIDTH) {
       return '250';
     } else {
       return '150';

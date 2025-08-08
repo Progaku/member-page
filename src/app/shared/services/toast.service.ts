@@ -1,8 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Message, MessageService } from 'primeng/api';
-
-type OmittedKeys = 'severity' | 'detail' | 'closable';
-type MessageOptions = Omit<Message, OmittedKeys>;
+import { ToastMessageOptions, MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +11,7 @@ export class ToastService {
     this.messageService.clear();
   }
 
-  error(message: string, options?: MessageOptions): void {
+  error(message: string, options?: ToastMessageOptions): void {
     this.messageService.add({
       severity: 'error',
       detail: message,
@@ -23,7 +20,7 @@ export class ToastService {
     });
   }
 
-  warn(message: string, options?: MessageOptions): void {
+  warn(message: string, options?: ToastMessageOptions): void {
     this.messageService.add({
       severity: 'warn',
       detail: message,
@@ -32,7 +29,7 @@ export class ToastService {
     });
   }
 
-  success(message: string, options?: MessageOptions): void {
+  success(message: string, options?: ToastMessageOptions): void {
     this.messageService.add({
       severity: 'success',
       detail: message,
@@ -41,7 +38,7 @@ export class ToastService {
     });
   }
 
-  info(message: string, options?: MessageOptions): void {
+  info(message: string, options?: ToastMessageOptions): void {
     this.messageService.add({
       severity: 'info',
       detail: message,

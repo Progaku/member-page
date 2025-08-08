@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
@@ -22,7 +22,8 @@ import { ToastService } from '@/shared/services/toast.service';
         DatePipe
     ],
     templateUrl: './member-detail.component.html',
-    styleUrl: './member-detail.component.scss'
+    styleUrl: './member-detail.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MemberDetailComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
@@ -32,13 +33,13 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   private cloudStorageService = inject(CloudStorageService);
 
   /** 詳細 */
-  memberDetail: MemberDetail = MemberDetailInitial;
+  memberDetail = signal<MemberDetail>(MemberDetailInitial);
 
   /** 画像パス */
-  iconImagePath: string | null = null;
+  iconImagePath = signal<string | null>(null);
 
   /** 現在の画面幅 */
-  currentWindowWidth = window.innerWidth;
+  private currentWindowWidth = signal(window.innerWidth);
 
   ngOnInit(): void {
     const resolverData = this.activatedRoute.snapshot.data;
@@ -48,13 +49,13 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
       this.router.navigate(['/internal/members']).then();
       return;
     }
-    this.memberDetail = memberDetail;
+    this.memberDetail.set(memberDetail);
     if (memberDetail.iconImage) {
       this.subscription.add(
         this.cloudStorageService.getImageUri(memberDetail.iconImage).pipe(
           filter((item): item is string => item !== null)
         ).subscribe((path) => {
-          this.iconImagePath = path;
+          this.iconImagePath.set(path);
         })
       );
     }
@@ -66,12 +67,12 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
   @HostListener('window:resize')
   onResize() {
-    this.currentWindowWidth = window.innerWidth;
+    this.currentWindowWidth.set(window.innerWidth);
   }
 
   /** 画像幅 */
   get imageWidth(): string {
-    if (this.currentWindowWidth > TABLET_THRESHOLD_WIDTH) {
+    if (this.currentWindowWidth() > TABLET_THRESHOLD_WIDTH) {
       return '400';
     } else {
       return '250';

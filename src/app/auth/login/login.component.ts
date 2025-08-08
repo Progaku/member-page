@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { concatMap, map, of, Subscription } from 'rxjs';
+import {catchError, concatMap, map, of, Subscription} from 'rxjs';
 
 import { FirebaseAuthenticationService } from '@/api/firebase-authentication.service';
 import { FirestoreService } from '@/api/firestore.service';
@@ -53,6 +53,10 @@ export class LoginComponent implements OnDestroy {
             return this.firebaseAuthenticationService.anonymousLogin().pipe(
               map(() => {
                 return item;
+              }),
+              catchError((e) => {
+                this.toastService.error('failed login');
+                throw e;
               })
             );
           } else {
