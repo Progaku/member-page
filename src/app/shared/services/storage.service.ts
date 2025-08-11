@@ -25,12 +25,12 @@ class StorageRepository {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
   storage = new StorageRepository();
 
-  constructor() { }
+  constructor() {}
 
   get userId(): string | null {
     return this.storage.getItem(StorageKey.userId);

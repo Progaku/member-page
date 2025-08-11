@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import {
+  browserSessionPersistence,
   getAuth,
-  signInWithEmailAndPassword,
   signInAnonymously,
+  signInWithEmailAndPassword,
   signOut,
   UserCredential,
-  browserSessionPersistence
 } from 'firebase/auth';
 import { from, Observable } from 'rxjs';
-
 import { firebaseAuth } from './firebase';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirebaseAuthenticationService {
-
   constructor() {}
 
   login(userId: string, password: string): Observable<UserCredential> {

@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-form-hint',
   standalone: true,
   templateUrl: './form-hint.component.html',
-  styleUrl: './form-hint.component.scss'
+  styleUrl: './form-hint.component.scss',
 })
 export class FormHintComponent {}

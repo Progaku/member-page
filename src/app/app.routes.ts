@@ -8,21 +8,19 @@ import { isLoggedInGuard } from '@/shared/guards/is-logged-in.guard';
 export const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./auth/auth.routes').then((m) => m.routes)
+    loadChildren: () => import('./auth/auth.routes').then((m) => m.routes),
   },
   {
     path: 'admin-internal',
     component: AdminTemplateComponent,
     canActivate: [isAuthAdminGuard],
-    loadChildren: () =>
-      import('@/admin-internal/admin-internal.routes').then((m) => m.routes),
+    loadChildren: () => import('@/admin-internal/admin-internal.routes').then((m) => m.routes),
   },
   {
     path: 'internal',
     component: TemplateComponent,
     canActivate: [isLoggedInGuard],
-    loadChildren: () =>
-      import('./internal/internal.routes').then((m) => m.routes),
+    loadChildren: () => import('./internal/internal.routes').then((m) => m.routes),
   },
   {
     path: '**',

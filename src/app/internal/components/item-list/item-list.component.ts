@@ -4,8 +4,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
   styleUrl: './item-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemListComponent {
-  title = input.required<string>()
+  title = input.required<string>();
 }

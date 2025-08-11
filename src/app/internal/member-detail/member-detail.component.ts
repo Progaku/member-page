@@ -5,7 +5,6 @@ import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
 import { ImageModule } from 'primeng/image';
 import { filter, Subscription } from 'rxjs';
-
 import { CloudStorageService } from '@/api/cloud-storage.service';
 import { MemberDetail, MemberDetailInitial } from '@/api/firestore.service';
 import { ItemListComponent } from '@/internal/components/item-list/item-list.component';
@@ -13,17 +12,11 @@ import { TABLET_THRESHOLD_WIDTH } from '@/shared/constants/breakpoint';
 import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
-    selector: 'app-member-detail',
-    imports: [
-        ItemListComponent,
-        ChipModule,
-        ImageModule,
-        CardModule,
-        DatePipe
-    ],
-    templateUrl: './member-detail.component.html',
-    styleUrl: './member-detail.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-member-detail',
+  imports: [ItemListComponent, ChipModule, ImageModule, CardModule, DatePipe],
+  templateUrl: './member-detail.component.html',
+  styleUrl: './member-detail.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MemberDetailComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
@@ -52,11 +45,12 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     this.memberDetail.set(memberDetail);
     if (memberDetail.iconImage) {
       this.subscription.add(
-        this.cloudStorageService.getImageUri(memberDetail.iconImage).pipe(
-          filter((item): item is string => item !== null)
-        ).subscribe((path) => {
-          this.iconImagePath.set(path);
-        })
+        this.cloudStorageService
+          .getImageUri(memberDetail.iconImage)
+          .pipe(filter((item): item is string => item !== null))
+          .subscribe((path) => {
+            this.iconImagePath.set(path);
+          }),
       );
     }
   }

@@ -13,9 +13,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Lala
-      }
+        preset: Lala,
+      },
     }),
-    MessageService
-  ]
+    MessageService,
+  ],
 };

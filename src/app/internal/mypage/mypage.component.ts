@@ -4,15 +4,14 @@ import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
 import { CardModule } from 'primeng/card';
+import { DatePickerModule } from 'primeng/datepicker';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { concat, concatMap, forkJoin, map, Observable, of, Subscription } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
-
 import { CloudStorageService } from '@/api/cloud-storage.service';
 import { FirestoreService, MemberDetail } from '@/api/firestore.service';
 import { FormErrorComponent } from '@/shared/components/atoms/form-error/form-error.component';
@@ -23,23 +22,23 @@ import { StorageService } from '@/shared/services/storage.service';
 import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
-    selector: 'app-mypage',
-    imports: [
-      ImageModule,
-      CardModule,
-      AutoCompleteModule,
-      ButtonModule,
-      FormFieldComponent,
-      InputTextModule,
-      ReactiveFormsModule,
-      DatePickerModule,
-      FormLabelComponent,
-      FormErrorComponent,
-      TextareaModule,
-      FileUploadModule
-    ],
-    templateUrl: './mypage.component.html',
-    styleUrl: './mypage.component.scss'
+  selector: 'app-mypage',
+  imports: [
+    ImageModule,
+    CardModule,
+    AutoCompleteModule,
+    ButtonModule,
+    FormFieldComponent,
+    InputTextModule,
+    ReactiveFormsModule,
+    DatePickerModule,
+    FormLabelComponent,
+    FormErrorComponent,
+    TextareaModule,
+    FileUploadModule,
+  ],
+  templateUrl: './mypage.component.html',
+  styleUrl: './mypage.component.scss',
 })
 export class MypageComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
@@ -119,25 +118,26 @@ export class MypageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription.add(
-      this.firestoreService.getMemberById(this.storageService.userId!).pipe(
-        concatMap((param): Observable<[MemberDetail | null, string | null] > => {
-          if (!param?.iconImage) {
-            return of([param, null]);
+      this.firestoreService
+        .getMemberById(this.storageService.userId!)
+        .pipe(
+          concatMap((param): Observable<[MemberDetail | null, string | null]> => {
+            if (!param?.iconImage) {
+              return of([param, null]);
+            }
+            return this.cloudStorageService.getImageUri(param.iconImage).pipe(map((path) => [param, path]));
+          }),
+        )
+        .subscribe(([param, path]) => {
+          if (!param) {
+            this.toastService.error('failed get my info');
+            this.router.navigate(['/login']).then();
+            return;
           }
-          return this.cloudStorageService.getImageUri(param.iconImage).pipe(
-            map((path)=> [param, path])
-          );
-        })
-      ).subscribe(([param, path]) => {
-        if (!param) {
-          this.toastService.error('failed get my info');
-          this.router.navigate(['/login']).then();
-          return;
-        }
-        this.formBuilder(param);
-        this.currentImageId = param.iconImage;
-        this.myIconPath = path;
-      })
+          this.formBuilder(param);
+          this.currentImageId = param.iconImage;
+          this.myIconPath = path;
+        }),
     );
   }
 
@@ -154,7 +154,7 @@ export class MypageComponent implements OnInit, OnDestroy {
   onClickIconSettingButton(event: Event): void {
     const target = event.target as HTMLInputElement;
     const reader = new FileReader();
-    reader.addEventListener('load', e => {
+    reader.addEventListener('load', (e) => {
       if (!e.target?.result) {
         return;
       }
@@ -163,18 +163,20 @@ export class MypageComponent implements OnInit, OnDestroy {
       this.subscription.add(
         forkJoin([
           this.firestoreService.uploadMyIcon(this.storageService.userId!, uuid),
-          this.cloudStorageService.setStorage(uuid, base64String)
-        ]).pipe(
-          concatMap(() => {
-            if (this.currentImageId) {
-              return concat(this.cloudStorageService.deleteStorage(this.currentImageId));
-            }
-            return of(null);
-          })
-        ).subscribe(() => {
-          this.toastService.info('update success!');
-          this.router.navigate(['/internal/members']).then();
-        })
+          this.cloudStorageService.setStorage(uuid, base64String),
+        ])
+          .pipe(
+            concatMap(() => {
+              if (this.currentImageId) {
+                return concat(this.cloudStorageService.deleteStorage(this.currentImageId));
+              }
+              return of(null);
+            }),
+          )
+          .subscribe(() => {
+            this.toastService.info('update success!');
+            this.router.navigate(['/internal/members']).then();
+          }),
       );
     });
     reader.readAsDataURL(target.files![0]);
@@ -183,19 +185,21 @@ export class MypageComponent implements OnInit, OnDestroy {
   /** プロフィール設定ボタンの押下 */
   onClickProfileSettingButton(): void {
     this.subscription.add(
-      this.firestoreService.updateMyInfo(this.storageService.userId!, {
-        nickname: this.nicknameForm.value,
-        twitterUserId: this.twitterUserIdForm.value,
-        birthday: this.birthdayForm.value && format(this.birthdayForm.value, 'yyyy/MM/dd'),
-        prefectures: this.prefecturesForm.value,
-        techs: this.techChipForm.value,
-        participationReason: this.participationReasonForm.value,
-        hobby: this.hobbyForm.value,
-        description: this.descriptionForm.value,
-      }).subscribe(() => {
-        this.toastService.info('update success!');
-        this.router.navigate(['/internal/members']).then();
-      })
+      this.firestoreService
+        .updateMyInfo(this.storageService.userId!, {
+          nickname: this.nicknameForm.value,
+          twitterUserId: this.twitterUserIdForm.value,
+          birthday: this.birthdayForm.value && format(this.birthdayForm.value, 'yyyy/MM/dd'),
+          prefectures: this.prefecturesForm.value,
+          techs: this.techChipForm.value,
+          participationReason: this.participationReasonForm.value,
+          hobby: this.hobbyForm.value,
+          description: this.descriptionForm.value,
+        })
+        .subscribe(() => {
+          this.toastService.info('update success!');
+          this.router.navigate(['/internal/members']).then();
+        }),
     );
   }
 

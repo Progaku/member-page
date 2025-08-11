@@ -6,7 +6,6 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { Subscription } from 'rxjs';
-
 import { FirebaseAuthenticationService } from '@/api/firebase-authentication.service';
 import { FormErrorComponent } from '@/shared/components/atoms/form-error/form-error.component';
 import { FormLabelComponent } from '@/shared/components/atoms/form-label/form-label.component';
@@ -14,20 +13,20 @@ import { FormFieldComponent } from '@/shared/components/molecules/form-field/for
 import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
-    selector: 'app-admin-login',
-    imports: [
-        ButtonModule,
-        CardModule,
-        FormErrorComponent,
-        FormFieldComponent,
-        FormLabelComponent,
-        PasswordModule,
-        FormsModule,
-        InputTextModule,
-        ReactiveFormsModule
-    ],
-    templateUrl: './admin-login.component.html',
-    styleUrl: './admin-login.component.scss'
+  selector: 'app-admin-login',
+  imports: [
+    ButtonModule,
+    CardModule,
+    FormErrorComponent,
+    FormFieldComponent,
+    FormLabelComponent,
+    PasswordModule,
+    FormsModule,
+    InputTextModule,
+    ReactiveFormsModule,
+  ],
+  templateUrl: './admin-login.component.html',
+  styleUrl: './admin-login.component.scss',
 })
 export class AdminLoginComponent implements OnDestroy {
   private subscription = new Subscription();
@@ -56,19 +55,15 @@ export class AdminLoginComponent implements OnDestroy {
 
   onClickAdminLogin(): void {
     this.subscription.add(
-      this.firebaseAuthenticationService.login(
-        this.idForm.value,
-        this.passwordForm.value
-      ).subscribe({
+      this.firebaseAuthenticationService.login(this.idForm.value, this.passwordForm.value).subscribe({
         next: () => {
           this.toastService.info('admin login');
           this.router.navigate(['/admin-internal/register']).then();
         },
         error: () => {
           this.toastService.error('failed login');
-        }
-      }
-      )
+        },
+      }),
     );
   }
 

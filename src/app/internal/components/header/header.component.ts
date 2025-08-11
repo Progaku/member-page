@@ -1,15 +1,14 @@
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-
 import { TABLET_THRESHOLD_WIDTH } from '@/shared/constants/breakpoint';
 import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
-    selector: 'app-header',
-    imports: [ButtonModule],
-    templateUrl: './header.component.html',
-    styleUrl: './header.component.scss'
+  selector: 'app-header',
+  imports: [ButtonModule],
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
   private toastService = inject(ToastService);

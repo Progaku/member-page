@@ -6,13 +6,12 @@ import {
   getDoc,
   getDocs,
   orderBy,
-  serverTimestamp,
   query,
+  serverTimestamp,
   updateDoc,
-  where
+  where,
 } from 'firebase/firestore';
 import { from, map, Observable } from 'rxjs';
-
 import { firestore } from './firebase';
 
 const FIRESTORE_NAME = 'member';
@@ -27,16 +26,6 @@ export interface Member {
   prefectures: string;
   techs: string[];
 }
-
-export const MemberInitial: Member = {
-  id: '',
-  nickname: '',
-  iconImage: null,
-  twitterUserId: null,
-  birthday: null,
-  prefectures: '',
-  techs: [],
-};
 
 /** メンバー詳細 */
 export interface MemberDetail {
@@ -87,16 +76,13 @@ export interface UpdateMyInfoRequest {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirestoreService {
   constructor() {}
 
   getMembers(): Observable<Member[]> {
-    const memberRef = query(
-      collection(firestore, FIRESTORE_NAME),
-      orderBy('createdAt', 'desc')
-    );
+    const memberRef = query(collection(firestore, FIRESTORE_NAME), orderBy('createdAt', 'desc'));
     return from(getDocs(memberRef)).pipe(
       map((param) => {
         return param.docs.map((item): Member => {
@@ -111,14 +97,12 @@ export class FirestoreService {
             techs: data['techs'],
           };
         });
-      })
+      }),
     );
   }
 
   getMemberById(id: string): Observable<MemberDetail | null> {
-    const memberRef = doc(
-      firestore, FIRESTORE_NAME, id
-    );
+    const memberRef = doc(firestore, FIRESTORE_NAME, id);
     return from(getDoc(memberRef)).pipe(
       map((snap): MemberDetail | null => {
         if (snap.exists()) {
@@ -142,10 +126,7 @@ export class FirestoreService {
   }
 
   getMemberByMemberId(memberId: string): Observable<LoginUser | null> {
-    const loginUserRef = query(
-      collection(firestore, FIRESTORE_NAME),
-      where('memberId', '==', memberId)
-    );
+    const loginUserRef = query(collection(firestore, FIRESTORE_NAME), where('memberId', '==', memberId));
     return from(getDocs(loginUserRef)).pipe(
       map((param): LoginUser | null => {
         if (param.empty) {
@@ -155,42 +136,38 @@ export class FirestoreService {
         const data = param.docs[0];
 
         return {
-          id: data.id
+          id: data.id,
         };
-      })
+      }),
     );
   }
 
   registerUser(param: RegisterUserRequest): Observable<void> {
     const memberRef = collection(firestore, FIRESTORE_NAME);
-    return from(addDoc(memberRef, {
-      nickname: param.nickname,
-      memberId: param.memberId,
-      createdAt: serverTimestamp(),
-      iconImage: null,
-      twitterUserId: null,
-      birthday: null,
-      prefectures: '',
-      techs: [],
-      participationReason: '',
-      hobby: [],
-      description: '',
-    })).pipe(
-      map(() => {})
-    );
+    return from(
+      addDoc(memberRef, {
+        nickname: param.nickname,
+        memberId: param.memberId,
+        createdAt: serverTimestamp(),
+        iconImage: null,
+        twitterUserId: null,
+        birthday: null,
+        prefectures: '',
+        techs: [],
+        participationReason: '',
+        hobby: [],
+        description: '',
+      }),
+    ).pipe(map(() => {}));
   }
 
   updateMyInfo(id: string, param: UpdateMyInfoRequest): Observable<void> {
-    const myInfoRef = doc(
-      firestore, FIRESTORE_NAME, id
-    );
+    const myInfoRef = doc(firestore, FIRESTORE_NAME, id);
     return from(updateDoc(myInfoRef, { ...param }));
   }
 
   uploadMyIcon(id: string, iconImageId: string): Observable<void> {
-    const myInfoRef = doc(
-      firestore, FIRESTORE_NAME, id
-    );
+    const myInfoRef = doc(firestore, FIRESTORE_NAME, id);
     return from(updateDoc(myInfoRef, { iconImage: iconImageId }));
   }
 }

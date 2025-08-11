@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import {catchError, concatMap, map, of, Subscription} from 'rxjs';
-
+import { catchError, concatMap, map, of, Subscription } from 'rxjs';
 import { FirebaseAuthenticationService } from '@/api/firebase-authentication.service';
 import { FirestoreService } from '@/api/firestore.service';
 import { FormErrorComponent } from '@/shared/components/atoms/form-error/form-error.component';
@@ -15,18 +14,18 @@ import { StorageService } from '@/shared/services/storage.service';
 import { ToastService } from '@/shared/services/toast.service';
 
 @Component({
-    selector: 'app-login',
-    imports: [
-        CardModule,
-        FormFieldComponent,
-        ReactiveFormsModule,
-        InputTextModule,
-        ButtonModule,
-        FormLabelComponent,
-        FormErrorComponent,
-    ],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss'
+  selector: 'app-login',
+  imports: [
+    CardModule,
+    FormFieldComponent,
+    ReactiveFormsModule,
+    InputTextModule,
+    ButtonModule,
+    FormLabelComponent,
+    FormErrorComponent,
+  ],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnDestroy {
   private subscription = new Subscription();
@@ -47,31 +46,34 @@ export class LoginComponent implements OnDestroy {
 
   onClickLogin(): void {
     this.subscription.add(
-      this.firestoreService.getMemberByMemberId(this.memberIdForm.value).pipe(
-        concatMap((item) => {
+      this.firestoreService
+        .getMemberByMemberId(this.memberIdForm.value)
+        .pipe(
+          concatMap((item) => {
+            if (item) {
+              return this.firebaseAuthenticationService.anonymousLogin().pipe(
+                map(() => {
+                  return item;
+                }),
+                catchError((e) => {
+                  this.toastService.error('failed login');
+                  throw e;
+                }),
+              );
+            } else {
+              return of(item);
+            }
+          }),
+        )
+        .subscribe((item) => {
           if (item) {
-            return this.firebaseAuthenticationService.anonymousLogin().pipe(
-              map(() => {
-                return item;
-              }),
-              catchError((e) => {
-                this.toastService.error('failed login');
-                throw e;
-              })
-            );
+            this.storageService.setUserId(item.id);
+            this.toastService.info('login');
+            this.router.navigate(['/internal/mypage']).then();
           } else {
-            return of(item);
+            this.toastService.error('failed login');
           }
-        })
-      ).subscribe((item) => {
-        if (item) {
-          this.storageService.setUserId(item.id);
-          this.toastService.info('login');
-          this.router.navigate(['/internal/mypage']).then();
-        } else {
-          this.toastService.error('failed login');
-        }
-      })
+        }),
     );
   }
 

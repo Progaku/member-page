@@ -4,26 +4,25 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { Subscription } from 'rxjs';
-
 import { FirestoreService } from '@/api/firestore.service';
 import { FormErrorComponent } from '@/shared/components/atoms/form-error/form-error.component';
 import { FormLabelComponent } from '@/shared/components/atoms/form-label/form-label.component';
 import { FormFieldComponent } from '@/shared/components/molecules/form-field/form-field.component';
 
 @Component({
-    selector: 'app-register-user',
-    imports: [
-        ButtonModule,
-        CardModule,
-        FormErrorComponent,
-        FormFieldComponent,
-        FormLabelComponent,
-        FormsModule,
-        InputTextModule,
-        ReactiveFormsModule
-    ],
-    templateUrl: './register-user.component.html',
-    styleUrl: './register-user.component.scss'
+  selector: 'app-register-user',
+  imports: [
+    ButtonModule,
+    CardModule,
+    FormErrorComponent,
+    FormFieldComponent,
+    FormLabelComponent,
+    FormsModule,
+    InputTextModule,
+    ReactiveFormsModule,
+  ],
+  templateUrl: './register-user.component.html',
+  styleUrl: './register-user.component.scss',
 })
 export class RegisterUserComponent implements OnDestroy {
   private subscription = new Subscription();
@@ -32,10 +31,7 @@ export class RegisterUserComponent implements OnDestroy {
   /** 合言葉 */
   userIdForm = new FormControl<string>('', {
     nonNullable: true,
-    validators: [
-      Validators.required,
-      Validators.pattern(/^[a-zA-Z0-9_-]+$/)
-    ],
+    validators: [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]+$/)],
   });
 
   /** ニックネーム */
@@ -58,7 +54,7 @@ export class RegisterUserComponent implements OnDestroy {
       this.firestoreService.registerUser(this.formGroup.getRawValue()).subscribe(() => {
         this.userIdForm.setValue('');
         this.nicknameForm.setValue('');
-      })
+      }),
     );
   }
 }
